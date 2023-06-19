@@ -7,9 +7,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - 5672:5672
-      - 15672:15672
   postgres:
     image: postgres
     container_name: loan-management-db
@@ -19,3 +16,25 @@ services:
       - POSTGRES_DB=loan-management
     ports:
       - 54321:5432
+  django:
+    build: ./server
+    container_name: loan-management-server
+    ports:
+     - 8000:8000
+    depends_on:
+      - postgres
+    command: python manage.py runserver 0.0.0.0:8000
+  celery:
+    build: ./server
+    container_name: loan-management-celery
+    depends_on:
+      - postgres
+      - rabbitmq
+    command: python -m celery -A loan_management worker
+  ui:
+    build: ./client-ui
+    container_name: loan-management-ui
+    depends_on:
+      - django
+    ports:
+      - 5173:5173

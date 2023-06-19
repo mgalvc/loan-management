@@ -85,8 +85,8 @@ DATABASES = {
         "NAME": "loan-management",
         "USER": "django",
         "PASSWORD": "admin",
-        "HOST": "127.0.0.1",
-        "PORT": "54321",
+        "HOST": "postgres",
+        "PORT": "5432",
     }
 }
 
@@ -133,4 +133,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery settings
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672'
