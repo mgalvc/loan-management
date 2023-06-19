@@ -10,3 +10,12 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  postgres:
+    image: postgres
+    container_name: loan-management-db
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=django
+      - POSTGRES_DB=loan-management
+    ports:
+      - 54321:5432
